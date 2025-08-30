@@ -1200,9 +1200,6 @@ a { color: inherit; text-decoration: none; }
   color: #fff; 
   text-decoration: underline; 
 }
-.footer-phone-highlight p{
-  text:black
-}
 .footer-phone-highlight {
   margin-top: 20px;
   padding: 16px 24px;
