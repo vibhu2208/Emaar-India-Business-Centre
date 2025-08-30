@@ -18,7 +18,7 @@ module.exports = async (req, res) => {
     const name = (body.name || '').toString().trim();
     const email = (body.email || '').toString().trim();
     const mobile = (body.mobile || '').toString().trim();
-    const project = (body.project || 'Airia Corporate Tower').toString();
+    const project = (body.project || 'Emaar India Business Centre').toString();
 
     if (!name || !mobile) {
       return res.status(400).send('Error: Missing required fields');

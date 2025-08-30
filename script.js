@@ -112,7 +112,7 @@ function handleFormSubmission(form) {
         name: userName,
         email: (formData.get('email') || '').toString().trim(),
         mobile: userMobile,
-        project: (formData.get('project') || 'Airia Corporate Tower').toString()
+        project: (formData.get('project') || 'Emaar India Business Centre').toString()
       };
 
       const response = await fetch('/api/enquiry', {
@@ -142,13 +142,7 @@ function handleFormSubmission(form) {
         form.innerHTML = '';
         form.appendChild(successMessage);
         
-        // Trigger download if there was a pending download
-        if (pendingDownload) {
-          setTimeout(() => {
-            triggerDownload(pendingDownload);
-            pendingDownload = null;
-          }, 1500);
-        }
+        // No downloads for general enquiry forms
         
         // Unlock all floor plans and site plans (for popup form)
         if (form.id === 'enquiry-form') {
@@ -164,7 +158,7 @@ function handleFormSubmission(form) {
             closeModal();
             // Reset form without reloading page
             form.innerHTML = `
-              <input type="hidden" name="project" value="Airia Corporate Tower">
+              <input type="hidden" name="project" value="Emaar India Business Centre">
               <div class="form-row">
                 <input type="text" name="name" placeholder="Full Name" required />
               </div>
@@ -183,11 +177,23 @@ function handleFormSubmission(form) {
             handleFormSubmission(form);
           }, 3000);
         } else {
-          // For footer form, store unlock state and reload
-          localStorage.setItem('twintower_unlocked', 'true');
+          // For footer form, just show success and reset after delay
           setTimeout(() => {
-            location.reload();
-          }, 2000);
+            form.innerHTML = `
+              <input type="hidden" name="project" value="Emaar India Business Centre">
+              <div class="form-grid">
+                <input type="text" name="name" placeholder="Full Name" required />
+                <input type="email" name="email" placeholder="Email (Optional)" />
+                <input type="tel" name="mobile" placeholder="Mobile Number" required />
+                <button class="btn" type="submit">Get Details</button>
+              </div>
+              <noscript>
+                <p class="no-js-notice">Note: JavaScript is disabled. The form will submit directly to our server.</p>
+              </noscript>
+            `;
+            // Re-attach event listener to the new form
+            handleFormSubmission(form);
+          }, 3000);
         }
       } else {
         throw new Error(result || 'Failed to send message');
@@ -346,9 +352,9 @@ function triggerDownload(downloadType) {
     for (let i = 1; i <= 14; i++) {
       floorPlanFiles.push(`images/f${i}.webp`);
     }
-    createZipFromImages(floorPlanFiles, 'Airia_Corporate_Tower_Floor_Plans.zip');
+    createZipFromImages(floorPlanFiles, 'Emaar_India_Business_Centre_Floor_Plans.zip');
   } else if (downloadType === 'master-plan') {
-    downloadSingleFile('images/master-plan.webp', 'Airia_Corporate_Tower_Master_Plan.webp');
+    downloadSingleFile('images/master-plan.webp', 'Emaar_India_Business_Centre_Master_Plan.webp');
   }
 }
 
