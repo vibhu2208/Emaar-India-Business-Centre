@@ -2,9 +2,9 @@
 // Basic contact form handler with DB insert and email
 // Progressive enhancement support: returns plain text when X-Requested-With is sent
 
-$subject = 'Twin Tower - New Enquiry';
+$subject = 'Emaar India Business Centre - New Enquiry';
 $emailadd = 'query@aadharhomes.com';
-$default_project = 'Twin Tower';
+$default_project = 'Emaar India Business Centre';
 
 // Destination after non-JS submit
 $redirect_url = 'index.html';
