@@ -107,13 +107,21 @@ function handleFormSubmission(form) {
         return;
       }
       
-      // Submit form data to form.php
-      const response = await fetch('form.php', {
+      // Submit form data to Vercel Serverless Function
+      const payload = {
+        name: userName,
+        email: (formData.get('email') || '').toString().trim(),
+        mobile: userMobile,
+        project: (formData.get('project') || 'Airia Corporate Tower').toString()
+      };
+
+      const response = await fetch('/api/enquiry', {
         method: 'POST',
         headers: {
+          'Content-Type': 'application/json',
           'X-Requested-With': 'XMLHttpRequest'
         },
-        body: formData
+        body: JSON.stringify(payload)
       });
       
       const result = await response.text();
